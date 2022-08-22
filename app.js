@@ -1,13 +1,12 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var ejsLayout = require("express-ejs-layouts");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const ejsLayout = require("express-ejs-layouts");
 require("dotenv").config();
 
-console.log(process.env);
-var app = express();
+const app = express();
 app.listen(process.env.PORT, () => {
   console.log("server berjalan");
 });
@@ -22,7 +21,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-var indexRouter = require("./routes/index");
+const usersRouter = require("./routes/Users");
+const indexRouter = require("./routes/index");
 app.use("/", indexRouter);
+app.use("/users", usersRouter);
 
 module.exports = app;
