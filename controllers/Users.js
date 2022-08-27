@@ -7,9 +7,9 @@ const getUsers = async (req, res) => {
 };
 
 const addUser = async (req, res) => {
-  const { nama, nama_product, email, nomor_telepon, password, confirm, alamat } = req.body;
+  const { nama, email, nomor_telepon, password, confirm, alamat } = req.body;
   if (password !== confirm) {
-    res.send(400).json({ msg: "Password tidak sama harap cek kembali" });
+    res.json({ msg: "Password tidak sama harap cek kembali" });
   } else {
     const result = await Users.create({
       nama: nama,
@@ -19,8 +19,41 @@ const addUser = async (req, res) => {
       alamat: alamat,
     });
     if (!result) res.send(500).json({ msg: "Terjadi error" });
-    res.send(200).json({ msg: result });
+    res.json({
+      res:'Berhasil insert data',
+      msg: [result]
+     });
   }
 };
 
-module.exports = { getUsers, addUser };
+const deleteUser = async (req, res) => {
+    const id = req.params.id
+    const result = await Users.destroy({where:{id:id}})
+    if(!result) res.send(500).json({msg:'erorr'})
+    res.json({msg:'Data berhasil dihapus'})
+}
+
+const editUser = async(req,res)=>{
+  const id = req.params.id
+  const { nama, nama_product, email, nomor_telepon, password, confirm, alamat } = req.body;
+  if (password !== confirm) {
+    res.json({ msg: "Password tidak sama harap cek kembali" });
+  } else {
+    const result = await Users.update({
+      nama: nama,
+      email: email,
+      nomor_telepon: nomor_telepon,
+      password: password,
+      alamat: alamat,
+    },{
+      where:{id:id}
+    });
+
+    if (!result) res.json({ msg: "Terjadi error" });
+    res.json({
+      res:'Berhasil update data',
+     });
+  }
+}
+
+module.exports = { getUsers, addUser,deleteUser,editUser };

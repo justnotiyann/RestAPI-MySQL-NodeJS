@@ -1,9 +1,12 @@
 const router = require("express").Router();
 const Users = require("../models/Users");
-const { getUsers, addUser } = require("../controllers/Users");
+const { getUsers, addUser, deleteUser, editUser } = require("../controllers/Users");
 
-router.get("/", getUsers);
+// CREATE READ UPDATE DELETE
 
-router.post("/add", addUser);
+router.get("/", getUsers); // READ
+router.post("/add", addUser); // CREATE
+router.delete('/delete/:id',deleteUser) // DELETE
+router.post('/edit/:id', editUser) // UPDATE
 
 module.exports = router;
