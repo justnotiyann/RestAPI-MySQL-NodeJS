@@ -1,4 +1,6 @@
 const Users = require("../models/Users");
+const upload = require('../controllers/Multer')
+
 
 const getUsers = async (req, res) => {
   const result = await Users.findAll({});
@@ -56,4 +58,12 @@ const editUser = async(req,res)=>{
   }
 }
 
-module.exports = { getUsers, addUser,deleteUser,editUser };
+
+const addImage = async(req,res) =>{
+  res.json('oke')
+}
+
+
+
+
+module.exports = { getUsers, addUser,deleteUser,editUser,addImage };
