@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const db = require("../config/db");
 
 const Users = db.define("users", {
-  nama_product: {
+  nama: {
     type: DataTypes.STRING,
     allowNull: false,
   },
